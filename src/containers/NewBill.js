@@ -10,7 +10,9 @@ export default class NewBill {
             `form[data-testid="form-new-bill"]`
         );
         formNewBill.addEventListener("submit", this.handleSubmit);
-        const file = this.document.querySelector(`input[data-testid="file"]`);
+        const file = this.document.querySelector(
+            `input[data-testid="inputfile"]`
+        );
         file.addEventListener("change", this.handleChangeFile);
         this.fileUrl = null;
         this.fileName = null;
@@ -32,8 +34,9 @@ export default class NewBill {
     };
     handleChangeFile = (e) => {
         e.preventDefault();
-        const file = this.document.querySelector(`input[data-testid="file"]`)
-            .files[0];
+        const file = this.document.querySelector(
+            `input[data-testid="inputfile"]`
+        ).files[0];
         let filePath = [];
         if (e.target.value) {
             filePath = e.target.value.split(/\\/g);
@@ -41,7 +44,7 @@ export default class NewBill {
             filePath = ["C:", "fakepath", file.name];
         }
         const fileName = filePath[filePath.length - 1];
-        const fileExt = fileName.split(".")[fileName.length - 1];
+        const fileExt = fileName.split(".")[fileName.split(".").length - 1];
         const AuthorizedFiles = ["jpg", "jpeg", "png"];
         if (AuthorizedFiles.includes(fileExt)) {
             const formData = new FormData();
