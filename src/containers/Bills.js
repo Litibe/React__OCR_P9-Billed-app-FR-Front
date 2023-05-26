@@ -85,6 +85,7 @@ export default class Bills {
                 .bills()
                 .list()
                 .then((snapshot) => {
+                    console.log("bills");
                     const bills = snapshot.map((doc) => {
                         try {
                             return {
