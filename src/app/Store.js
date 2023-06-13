@@ -61,8 +61,12 @@ class ApiEntity {
             url: `/${this.key}`,
             headers: getHeaders(headers),
         });
-        data = data.reverse();
-        return data;
+        const orderedBills = data;
+        orderedBills.sort((a, b) => {
+            if (a["date"] < b["date"]) return 1;
+            if (a["date"] > b["date"]) return -1;
+        });
+        return orderedBills;
     }
     async update({ data, selector, headers = {} }) {
         return await this.api.patch({
